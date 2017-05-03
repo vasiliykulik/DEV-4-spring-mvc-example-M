@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by Vasiliy Kylik on 03.05.2017.
- */
+ *//*(value="main/")*/
 @Controller
-        /*(value="main/")*/
 public class MainController {
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index() {
