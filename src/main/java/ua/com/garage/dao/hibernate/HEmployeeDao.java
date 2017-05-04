@@ -30,10 +30,10 @@ public class HEmployeeDao implements EmployeeDao {
     // 55. имплементируем findAll vtjnlz для этого воспользуемся другой возможностью Hibernate
     // а именно выполнение запросов
     @Override
+    @Transactional
     public List<Employee> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        session.createQuery("select e from Employee e").list(); // 56. select * from Employee, будет raw casting
-        return null;
+        return session.createQuery("select e from Employee e").list(); // 56. select * from Employee, будет raw casting
     }
 // 99. Имплементируем метод findByName, ссесия, query
 

@@ -9,10 +9,11 @@
     <tr>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Phone Number</th>
+        <th>Position</th>
         <th>Salary</th>
     </tr>
-    <c:forEach items="employees" var="employee">
+    <%--В items - мы должны обратится к переменной, а не переменной контроллера--%>
+    <c:forEach var="employee" items="${employees}" >
         <tr>
             <%--это наши объекты, а через точки мы обращаемся к getters of our objects--%>
             <td>${employee.name}</td>
