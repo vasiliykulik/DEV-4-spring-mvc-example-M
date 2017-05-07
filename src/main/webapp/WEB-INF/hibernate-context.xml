@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-- 12. так как мы Hibernate конфигурируем в Sprigovom приложении, Hibernate как Framework будет представлен через SessionFactory,
+ по сути будет такой entrypoint для нашего приложения, для работы с Hibernate
+для него мы создадим отдельный файлик, где мы будем конфигурировать beans, относящиеся исключительно к Hibernate и БД-->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
@@ -9,33 +11,22 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
-
-
     <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
-
         <property name="driverClass" value="${jdbc.driver.class}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
-
         <property name="minPoolSize" value="${jdbc.min.connections}"/>
-
         <property name="maxPoolSize" value="${jdbc.max.connections}"/>
-
         <property name="acquireIncrement" value="${jdbc.acquire.increment}"/>
     </bean>
-
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties"/>
     </bean>
 
-
-    <bean id="sessinFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-
         <property name="packagesToScan" value="ua.com.garage.model"/>
-
         <property name="hibernateProperties">
             <value>
                 hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect
@@ -45,7 +36,7 @@
     </bean>
 
     <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessinFactory"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
 
