@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
-public class Orders {
+public class Order {
     // 61. более сложный
 
     @Id
@@ -28,12 +28,12 @@ public class Orders {
 
 
     // 63. КОНФИгурируем таблицу Смапить Entity на таблицы
-// 131. Ошибка была в конфигурации
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "dish_to_order",
-            joinColumns = @JoinColumn(name = "order_id"), // наш id
-            inverseJoinColumns = @JoinColumn(name = "dish_id") // id того объекта с которым мы связыываемся
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
     private List<Dish> dishes;
 
@@ -43,17 +43,6 @@ public class Orders {
 
     @Column(name = "order_date")
     private Date orderDate;
-
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "id=" + id +
-                ", waiter=" + waiter +
-                ", dishes=" + dishes +
-                ", tableNumber=" + tableNumber +
-                ", orderDate=" + orderDate +
-                '}';
-    }
 
     public long getId() {
         return id;
@@ -93,5 +82,15 @@ public class Orders {
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", dishes=" + dishes +
+                ", tableNumber=" + tableNumber +
+                ", orderDate=" + orderDate +
+                '}';
     }
 }

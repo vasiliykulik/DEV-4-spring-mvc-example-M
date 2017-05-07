@@ -6,5 +6,5 @@ package ua.com.garage.model;
 public enum DishCategory {
     MAIN,
     SALAD,
-    SIDE_DISH
+  DESSERT, SIDE_DISH
 }

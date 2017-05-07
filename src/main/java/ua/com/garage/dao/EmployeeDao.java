@@ -1,5 +1,6 @@
 package ua.com.garage.dao;
 
+
 import ua.com.garage.model.Employee;
 
 import java.util.List;
@@ -8,16 +9,17 @@ import java.util.List;
  * Created by Raketa on 24.12.2016.
  */
 public interface EmployeeDao {
+  // 24. как и с Jdbc  - хорошим тоном будет выделение объектов работающих с БД
+//  или с Hibernate в отдельные объекты DataAccessObjects
+  void save(Employee employee);
 
-    void save(Employee employee);
+  Employee load(Long id);
 
-    Employee load(Long id);
+  List<Employee> findAll();
 
-    List<Employee> findAll();
+  Employee findByName(String name);
 
-    //98.
-    Employee findByName(String name);
+  void remove(Employee employee);
 
-    // 51. добавим меотд который будет удалять
-    void remove(Employee employee);
+  void removeAll();
 }

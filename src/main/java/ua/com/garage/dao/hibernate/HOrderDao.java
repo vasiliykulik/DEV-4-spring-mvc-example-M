@@ -1,9 +1,9 @@
 package ua.com.garage.dao.hibernate;
 
 import org.hibernate.SessionFactory;
-
 import ua.com.garage.dao.OrderDao;
-import ua.com.garage.model.Orders;
+import ua.com.garage.model.Order;
+
 
 import java.util.List;
 
@@ -11,23 +11,27 @@ import java.util.List;
  * Created by Raketa on 25.12.2016.
  */
 public class HOrderDao implements OrderDao {
-    // 74. и в Orders Dao тоже самое
-    private SessionFactory sessionFactory;
 
-    @Override
-    public void save(Orders orders) {
-        sessionFactory.getCurrentSession().save(orders);
-    }
+  private SessionFactory sessionFactory;
 
-    // 117. Таким же образом
+  @Override
+  public void save(Order order) {
+    sessionFactory.getCurrentSession().save(order);
+  }
 
+  @Override
+  public List<Order> findAllOrders() {
+    return sessionFactory.getCurrentSession().
+            createQuery("select o from Order o").list();
+  }
 
-    @Override
-    public List<Orders> findAllOrders() {
-        return sessionFactory.getCurrentSession().createQuery("select o from Orders o").list();
-    }
+  @Override
+  public void removeAll() {
+    sessionFactory.getCurrentSession().createQuery("delete from Order").executeUpdate();
+  }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+  public void setSessionFactory(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
+
 }
