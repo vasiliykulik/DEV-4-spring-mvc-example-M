@@ -18,10 +18,14 @@ public class EmployeeService {
   public EmployeeDao employeeDao;
 
   @Transactional
-  public List<Employee> getEmployees(){
+  public List<Employee> getEmployees() {
     return employeeDao.findAll();
   }
 
+  @Transactional
+  public Employee getEmployeeByName(String employeeName) {
+    return employeeDao.findByName(employeeName);
+  }
 
   public void setEmployeeDao(EmployeeDao employeeDao) {
     this.employeeDao = employeeDao;
